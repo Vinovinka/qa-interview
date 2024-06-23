@@ -16,7 +16,7 @@
 
 # Структура
 
-[Базовые вопросы](BaseQuestions.md)
+[Теория тестирования](BaseQuestions.md)
 
 [Мобильное тестирование](MobileTesting.md)
 
