@@ -4,7 +4,8 @@
 
 Цель данной секции - выяснить, насколько тестировщик вообще способен писать простой код и реализовывать несложные алгоритмы. 
 
-Решение задач приведено на Kotlin, но в общем случае возможно переложить тот же алгоритм на привычный вам язык либо описать псевдокодом. Чаще всего требуется писать без использования встроенных функций. Код должен компилироваться и проходить тестирование на приведенных примерах.
+У одной задачи может быть несколько решений, приведено по одному, с использованием Kotlin. 
+В общем случае возможно переложить тот же алгоритм на привычный вам язык либо описать псевдокодом. Чаще всего требуется писать без использования встроенных функций. Код должен компилироваться и проходить тестирование на приведенных примерах.
 
   
 
@@ -17,7 +18,24 @@
 
 `Output: [3, 2, 1, 0, 4, 5]`
 
-[Решение](tasks/ozonTask.kt)
+#### Решение
+```kt
+fun removeDuplicates(numbers: Array<Int>): Array<Int> {
+    val uniqueNumbers = mutableListOf<Int>()
+    for (number in numbers) {
+        if (number !in uniqueNumbers) {
+            uniqueNumbers.add(number)
+        }
+    }
+    return uniqueNumbers.toTypedArray()
+}
+```
+
+Сложность 
+
+по памяти - О(n), где n - длина массива numbers
+
+по времени - О(n)
 
 
 ### Тинькофф
@@ -30,7 +48,25 @@
 `Output: 2`
 
 #### Решение
+```kt
+fun countLetter(word: String, letter: Char): Int {
+    var count = 0
+    val lowercasedWord = word.lowercase()
 
+    for (l in uppercasedWord) {
+        if (l == letter) {
+            count++
+        }
+    }
+    return count
+}
+```
+
+Сложность 
+
+по памяти - О(1)
+
+по времени - О(n)
 
 #### Задача 2. 
 Дан массив целых чисел. Вывести медиану массива.
@@ -46,7 +82,26 @@
 `Output: 3,5`
 
 #### Решение
+```kt
+fun medianOfArray(nums: Array<Int>): Double {
+    val sizeOfArray = nums.size
+    
+    return if (sizeOfArray % 2 == 1) {
+        // Odd number of elements
+        nums[sizeOfArray / 2].toDouble()
 
+    } else {
+        // Even number of elements
+        ((nums[sizeOfArray / 2] + nums[sizeOfArray / 2 - 1]) / 2.0).toDouble()
+    }
+}
+```
+
+Сложность 
+
+по памяти - О(1)
+
+по времени - О(n)
 
 #### Задача 3. 
 Написать функцию, которая возвращает true, если поданный на вход массив содержит последовательность из трех или более чисел в любом месте. 
@@ -60,8 +115,30 @@
 `Output: false`
 
 #### Решение
+```kt
+fun hasSequence(numbers: Array<Int>): Boolean {
+    
+    var count = 1
+    
+    for (i in 1 until numbers.size) {
+        if (numbers[i] == numbers[i - 1] + 1) {
+            count++
+            if (count >= 3) 
+           	return true
+        } else {
+            count = 1
+        }
+    }
+    return false
+}
 
+```
 
+Сложность 
+
+по памяти - О(1)
+
+по времени - О(n)
 
 ### Яндекс
 
@@ -74,8 +151,25 @@
 
 `Output: 2`
 
-[Решение](tasks/yandexTask.kt)
+#### Решение
+```kt
+fun count(numbers: IntArray, number: Int): Int {
+	var count = 0
+    
+    for (element in numbers) {
+        if (element == number) {
+            count += 1
+        }
+    }
+    return count
+}
+```
 
+Сложность 
+
+по памяти - О(1)
+
+по времени - О(n)
 
 ### Avito
 
@@ -100,4 +194,57 @@ def function(y):
 1. При y = 1 вернется true
 2. В диапазоне значений y > 2 (внимание на последнее число заданного массива - только на него и нужно смотреть при решении данной задачи)
 
+#### Задача 2.
 
+Дано два неубывающих массива. Необходимо их объединить.
+
+`Input: [-2, 0, 3, 3], [-5, 0]`, 
+
+`Output: [-5, -2, 0, 3, 3]`
+
+```kt
+fun summOfArrays(nums1: Array<Int>, nums2: Array<Int>): Array<Int> {
+    var result = nums1 + nums2
+    return result.sort()
+}
+
+```
+
+
+### Прочие задачи
+
+#### Функция вычисления интеграла
+
+Интерграл можно вычислить методом прямоугольников, методом трапеций или методом Симпсона. Для данного случая взят метод трапеций. 
+
+Решение
+
+```kt
+fun integrate(f: (Double) -> Double, a: Double, b: Double, n: Int): Double {
+    if (n <= 0) {
+        throw IllegalArgumentException("Number of intervals must be greater than zero")
+    }
+
+    val h = (b - a) / n
+    var sum = 0.5 * (f(a) + f(b))
+
+    for (i in 1 until n) {
+        val x = a + i * h
+        sum += f(x)
+    }
+
+    return sum * h
+}
+
+fun main() {
+    // Пример использования: вычисление интеграла функции f(x) = x^2 от 0 до 1
+    val result = integrate({ x -> x * x }, 0.0, 1.0, 1000)
+    println("Result: $result")  // Ожидаемый результат: 1/3 ≈ 0.3333
+}
+
+```
+Сложность 
+
+по памяти - О(1)
+
+по времени - О(n)

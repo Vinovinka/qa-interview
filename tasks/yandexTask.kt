@@ -12,7 +12,7 @@ fun count(numbers: IntArray, number: Int): Int {
             count += 1
         }
     }
-    
+
     return count
 }
 
