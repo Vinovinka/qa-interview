@@ -223,9 +223,6 @@ fun factorial(n: Int): Int {
     return if (n == 0 || n == 1) 1 else n * factorial(n - 1)
 }
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Test
 
 class FactorialTest {
 
