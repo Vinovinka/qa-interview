@@ -207,9 +207,54 @@ fun summOfArrays(nums1: Array<Int>, nums2: Array<Int>): Array<Int> {
     var result = nums1 + nums2
     return result.sort()
 }
-
 ```
+#### Задача 3.
+Написать функцию, вычисляющую факториал натурального числа. Написать тесты на нее.
 
+Пример: 5! = 1 * 2 * 3 * 4 * 5 = 120
+
+Заранее известно, что 
+0! = 1 и 1! = 1
+
+#### Решение
+```kt
+fun factorial(n: Int): Int {
+    require(n >= 0) { "Factorial is not defined for negative numbers" }
+    return if (n == 0 || n == 1) 1 else n * factorial(n - 1)
+}
+
+
+class FactorialTest {
+
+    @Test
+    fun testFactorialOfZero() {
+        assertEquals(1, factorial(0))
+    }
+
+    @Test
+    fun testFactorialOfOne() {
+        assertEquals(1, factorial(1))
+    }
+
+    @Test
+    fun testFactorialOfPositiveNumber() {
+        assertEquals(120, factorial(5))
+        assertEquals(3628800, factorial(10))
+    }
+
+    @Test
+    fun testFactorialOfLargeNumber() {
+        assertEquals(243290200, factorial(12)) // 12! is still within the Int range
+    }
+
+    @Test
+    fun testFactorialOfNegativeNumber() {
+        assertThrows(IllegalArgumentException::class.java) {
+            factorial(-1)
+        }
+    }
+}
+```
 
 ### Прочие задачи
 
