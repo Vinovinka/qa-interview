@@ -171,6 +171,73 @@ fun count(numbers: IntArray, number: Int): Int {
 
 по времени - О(n)
 
+#### Задача 2.
+
+Написать функцию, которая определяет, является ли переданная строка палиндромом
+(читается слева-направо и справа-налево одинаково).
+
+Примеры палиндромов:
+- Казак
+- А роза упала на лапу Азора
+- Do geese see God?
+- Madam, I’m Adam
+
+#### Решение
+Через встроенный метод reversed() - очищаем строку от символов пробела и знаков препинания, разворачиваем, сравниваем с исходной.
+
+```kt
+fun isPalindrome(inputString: String): Boolean {
+    val cleanedString = inputString.replace("[^a-zA-Z0-9]".toRegex(), "").lowercase()
+    return cleanedString == cleanedString.reversed()
+}
+```
+
+Очищаем строку от всего, что не буквы, приводим к одному кейсу, дальше работаем с получившимся массивом букв. Известен размер строки - это размер массива. Нужно разделить массив пополам и дальше пройтись по нему и сравнить посимвольно первый и последний символы. Не совпали? Возвращаем false. Совпали - true.
+
+```kt
+fun isPalindrome(s: String): Boolean {
+   val cleanString = s.replace("[^a-zA-Z0-9]".toRegex(), "").lowercase()
+
+   for (i in 0 until cleanString.length / 2) {
+      if (cleanString[i] != cleanString[cleanString.length - i - 1]) {
+          return false
+       }
+    }
+    
+    return true
+}
+```
+
+#### Задача 3.
+Являются ли строки анаграммой?
+
+#### Решение
+```kt
+class Solution {
+    fun isAnagram(s: String, t: String): Boolean {
+        
+        if (s.length != t.length) return false
+        // return s.lowercase().toCharArray().sorted() == t.lowercase().toCharArray().sorted()
+
+        val charCount = mutableMapOf<Char, Int>()
+
+        for (char in s.lowercase()) {
+            charCount[char] = charCount.getOrDefault(char, 0) + 1
+        }
+
+        for (char in t.lowercase()) {
+            charCount[char] = charCount.getOrDefault(char, 0) - 1
+            if (charCount[char] == 0) {
+                charCount.remove(char)
+            }
+        }
+
+        return charCount.isEmpty()
+    
+    }
+}
+```
+
 ### Avito
 
 #### Задача 1.
